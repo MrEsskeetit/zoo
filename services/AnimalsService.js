@@ -1,74 +1,76 @@
 const fs = require('fs');
 const path = require('path');
 
-const zooFilePath = path.join(__dirname, '../data/zoo.json');
+const dataFilePath = path.join(__dirname, '../data/zoo.json');
 
-// Pomocnicza funkcja do wczytywania danych z pliku
-const readZooData = () => {
-    const data = fs.readFileSync(zooFilePath);
-    return JSON.parse(data);
+// Pomocnicza funkcja do odczytu i zapisu danych z pliku
+const readData = () => {
+    const rawData = fs.readFileSync(dataFilePath);
+    return JSON.parse(rawData);
 };
 
-// Pomocnicza funkcja do zapisywania danych do pliku
-const writeZooData = (data) => {
-    fs.writeFileSync(zooFilePath, JSON.stringify(data, null, 2));
+const writeData = (data) => {
+    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
 };
 
-class AnimalsService {
-    static getAllAnimals() {
-        return readZooData();
-    }
+const getAllAnimals = () => {
+    return readData();
+};
 
-    static getAnimalById(id) {
-        const animals = readZooData();
-        return animals.find(animal => animal.id == id);
-    }
+const getAnimalById = (id) => {
+    const animals = readData();
+    return animals.find(animal => animal.id === parseInt(id));
+};
 
-    static getEndangeredAnimals() {
-        const animals = readZooData();
-        return animals.filter(animal => animal.isEndangered);
-    }
+const getEndangeredAnimals = () => {
+    const animals = readData();
+    return animals.filter(animal => animal.isEndangered === true);
+};
 
-    static getAnimalsByHabitat(habitat) {
-        const animals = readZooData();
-        return animals.filter(animal => animal.habitat.toLowerCase() === habitat.toLowerCase());
-    }
+const getAnimalsByHabitat = (habitat) => {
+    const animals = readData();
+    return animals.filter(animal => animal.habitat.toLowerCase() === habitat.toLowerCase());
+};
 
-    static getAnimalsBySpecies(species) {
-        const animals = readZooData();
-        return animals.filter(animal => animal.species.toLowerCase() === species.toLowerCase());
-    }
+const getAnimalsBySpecies = (species) => {
+    const animals = readData();
+    return animals.filter(animal => animal.species.toLowerCase() === species.toLowerCase());
+};
 
-    static addAnimal(newAnimal) {
-        const animals = readZooData();
-        const id = animals.length ? Math.max(...animals.map(animal => animal.id)) + 1 : 1;
-        const animalToAdd = { id, ...newAnimal };
-        animals.push(animalToAdd);
-        writeZooData(animals);
-        return animalToAdd;
-    }
+const addAnimal = (newAnimal) => {
+    const animals = readData();
+    const id = animals.length > 0 ? Math.max(animals.map(a => a.id)) + 1 : 1;
+    newAnimal.id = id;
+    animals.push(newAnimal);
+    writeData(animals);
+    return newAnimal;
+};
 
-    static updateAnimal(id, updatedAnimal) {
-        const animals = readZooData();
-        const index = animals.findIndex(animal => animal.id == id);
-        if (index !== -1) {
-            animals[index] = { id, ...updatedAnimal };
-            writeZooData(animals);
-            return animals[index];
-        }
-        return null;
-    }
+const updateAnimal = (id, updatedAnimal) => {
+    const animals = readData();
+    const index = animals.findIndex(animal => animal.id === parseInt(id));
+    if (index === -1) return null;
+    animals[index] = { ...animals[index], ...updatedAnimal };
+    writeData(animals);
+    return animals[index];
+};
 
-    static deleteAnimal(id) {
-        const animals = readZooData();
-        const index = animals.findIndex(animal => animal.id == id);
-        if (index !== -1) {
-            animals.splice(index, 1);
-            writeZooData(animals);
-            return true;
-        }
-        return false;
-    }
-}
+const deleteAnimal = (id) => {
+    const animals = readData();
+    const index = animals.findIndex(animal => animal.id === parseInt(id));
+    if (index === -1) return false;
+    animals.splice(index, 1);
+    writeData(animals);
+    return true;
+};
 
-module.exports = AnimalsService;
+module.exports = {
+    getAllAnimals,
+    getAnimalById,
+    getEndangeredAnimals,
+    getAnimalsByHabitat,
+    getAnimalsBySpecies,
+    addAnimal,
+    updateAnimal,
+    deleteAnimal
+};

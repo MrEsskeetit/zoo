@@ -1,25 +1,25 @@
 [
   {
     "id": 1,
-    "name": "Simba",
-    "species": "Lion",
+    "name": "Marek",
+    "species": "Zyrafa",
     "age": 5,
     "isEndangered": false,
     "habitat": "Savanna"
   },
   {
     "id": 2,
-    "name": "Nala",
-    "species": "Lion",
-    "age": 4,
-    "isEndangered": false,
-    "habitat": "Savanna"
+    "name": "Koala",
+    "species": "Pantera",
+    "age": 3,
+    "isEndangered": true,
+    "habitat": "Jungle"
   },
   {
     "id": 3,
-    "name": "Dory",
-    "species": "Fish",
-    "age": 2,
+    "name": "Szark",
+    "species": "Ryba",
+    "age": 8,
     "isEndangered": true,
     "habitat": "Ocean"
   }

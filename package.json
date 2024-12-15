@@ -1,20 +1,19 @@
 {
   "name": "zoo-keeper",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "description": "Zoo Keeper API to manage a virtual zoo",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "express": "^4.21.2",
-    "nodemon": "^3.1.7"
-  }
+  "author": "Your Name",
+  "license": "ISC"
 }
