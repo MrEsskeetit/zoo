@@ -3,7 +3,6 @@ const path = require('path');
 
 const dataFilePath = path.join(__dirname, '../data/zoo.json');
 
-// Pomocnicza funkcja do odczytu i zapisu danych z pliku
 const readData = () => {
     const rawData = fs.readFileSync(dataFilePath);
     return JSON.parse(rawData);
